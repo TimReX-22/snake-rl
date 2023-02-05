@@ -4,6 +4,7 @@ from enum import Enum
 import pygame
 
 from cube import Cube
+from snake_colors import BLUE1, BLUE2
 
 class Direction(Enum):
     RIGHT = 1
@@ -17,7 +18,7 @@ class Snake(object):
     score: int = 0
     def __init__(self, color, pos):
         self.color = color
-        self.head = Cube(pos)
+        self.head = Cube(pos, color=BLUE1, color2=BLUE2)
         self.body.append(self.head)
         self.dirnx = 1 # direction of snake in x axis
         self.dirny = 0 # direction of snake in y axis
@@ -69,16 +70,16 @@ class Snake(object):
                 if i == len(self.body)-1:
                     self.turns.pop(p)
             else:
-                if c.dirnx == -1 and c.pos[0] <= 0: 
-                    c.pos = (c.rows-1, c.pos[1])
-                elif c.dirnx == 1 and c.pos[0] >= c.rows-1: 
-                    c.pos = (0,c.pos[1])
-                elif c.dirny == 1 and c.pos[1] >= c.rows-1: 
-                    c.pos = (c.pos[0], 0)
-                elif c.dirny == -1 and c.pos[1] <= 0: 
-                    c.pos = (c.pos[0],c.rows-1)
-                else: 
-                    c.move(c.dirnx,c.dirny)
+                # if c.dirnx == -1 and c.pos[0] <= 0: 
+                #     c.pos = (c.rows-1, c.pos[1])
+                # elif c.dirnx == 1 and c.pos[0] >= c.rows-1: 
+                #     c.pos = (0,c.pos[1])
+                # elif c.dirny == 1 and c.pos[1] >= c.rows-1: 
+                #     c.pos = (c.pos[0], 0)
+                # elif c.dirny == -1 and c.pos[1] <= 0: 
+                #     c.pos = (c.pos[0],c.rows-1)
+                # else: 
+                c.move(c.dirnx,c.dirny)
 
     def addCube(self):
         tail = self.body[-1]
@@ -96,7 +97,7 @@ class Snake(object):
         elif dy == -1:
             new_cube_y += 1
         
-        self.body.append(Cube((new_cube_x, new_cube_y), dx, dy))
+        self.body.append(Cube((new_cube_x, new_cube_y), dx, dy, color=BLUE1, color2=BLUE2))
         self.score += 1
 
 
@@ -114,6 +115,9 @@ class Snake(object):
         self.turns = {}
         self.dirnx = 0
         self.dirny = 1
+
+    def size(self) -> int:
+        return len(self.body)
 
     def get_action(self, dir: Direction) -> List[bool]:
         if dir == Direction.DOWN:

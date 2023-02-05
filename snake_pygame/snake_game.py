@@ -8,15 +8,10 @@ from tkinter import messagebox
 
 from snake import Snake, Direction
 from cube import Cube
+from snake_colors import *
 
 Action = List[bool]
 
-WHITE = (255, 255, 255)
-RED = (200,0,0)
-BLUE1 = (0, 0, 255)
-BLUE2 = (0, 100, 255)
-BLACK = (0,0,0)
-GREEN = (0,255,0)
 
 class SnakeGame(object):
     def __init__(self, width = 640, rows = 20) -> None:
@@ -29,6 +24,8 @@ class SnakeGame(object):
 
         self.snake = Snake((255, 0, 0), (10, 10))
         self.food = Cube(self.randomSnack(), color=GREEN)
+
+        self.frame_iteration = 0
 
     def randomSnack(self) -> Tuple[int, int]:
         positions = self.snake.body
@@ -59,20 +56,31 @@ class SnakeGame(object):
                     return self.snake.get_action(Direction.DOWN)
         return [0, 0, 0]
 
+    def collision(self) -> bool:
+        for x in range(self.snake.size()):
+            if self.snake.body[x].pos in list(map(lambda z:z.pos, self.snake.body[x+1:])):
+                return True
+        head_pos = self.snake.body[0].pos
+        if head_pos[0] < 0 or head_pos[0] >= self.rows  or head_pos[1] < 0 or head_pos[1] >= self.rows:
+            return True
+        return False
+
     def play_step(self, input_action = None):
+        self.frame_iteration += 1
+
         pygame.time.delay(100)
         self.clock.tick(50)
         action: Action = self.get_action_from_user()
         self.snake.move(action)
-        game_over: bool = False
+        reward: int = 0        
         if self.snake.body[0].pos == self.food.pos:
             self.snake.addCube()
             self.food = Cube(self.randomSnack(), color=GREEN)
-        for x in range(len(self.snake.body)):
-            if self.snake.body[x].pos in list(map(lambda z:z.pos, self.snake.body[x+1:])):
-                return True, self.snake.score
+            reward = 10
+        if self.collision() or self.frame_iteration > 100 * self.snake.size():
+            return True, self.snake.score, -10
         self.redrawWindow()
-        return False, self.snake.score
+        return False, self.snake.score, reward
 
     def drawGrid(self) -> None:
         sizeBtwn: int = self.width // self.rows
@@ -113,17 +121,16 @@ def message_box(subject: str, content: str) -> None:
 # reward for agent
 # play(action) -> direction
 # game_iteration
-# is_collision
 
 def main():
-    width = 500
-    rows = 20
+    width = 1000
+    rows = 40
     pygame.init()
     snake_game = SnakeGame(width, rows)
 
     game_over = False
     while not game_over:
-        game_over, score = snake_game.play_step()
+        game_over, score, reward = snake_game.play_step()
 
     message_box("You Lost!", "Your Score: " + str(score))
     pygame.quit()

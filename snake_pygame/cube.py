@@ -1,20 +1,15 @@
 import pygame
-
-WHITE = (255, 255, 255)
-RED = (200,0,0)
-BLUE1 = (0, 0, 255)
-BLUE2 = (0, 100, 255)
-BLACK = (0,0,0)
-GREEN = (0,255,0)
+from snake_colors import RED
 
 class Cube(object):
     rows: int = 20
     w: int = 500
-    def __init__(self, start, dirnx=1, dirny=0, color=RED):
+    def __init__(self, start, dirnx=1, dirny=0, color=RED, color2 = None):
         self.pos = start
         self.dirnx = dirnx
         self.dirny = dirny
         self.color = color
+        self.color2 = color2
 
     def move(self, dirnx, dirny):
         self.dirnx = dirnx
@@ -27,6 +22,9 @@ class Cube(object):
         j = self.pos[1]
 
         pygame.draw.rect(surface, self.color, (i*dis + 1, j*dis + 1, dis - 2, dis - 2))
+
+        if self.color2 is not None:
+            pygame.draw.rect(surface, self.color2, (i*dis + 5, j*dis + 5, dis - 10, dis - 10))
 
         if eyes:
             centre = dis//2

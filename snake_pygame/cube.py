@@ -1,5 +1,12 @@
 import pygame
-from snake_colors import RED
+
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+from snake_pygame.snake_colors import RED
 
 class Cube(object):
     rows: int = 20

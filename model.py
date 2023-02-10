@@ -18,18 +18,13 @@ class Linear_QNet(nn.Module):
 
     def save(self, file_name: str = "model"):
         model_folder_path = "./model"
-        if not os.path.exists(model_folder_path):
-            os.makedirs(model_folder_path)
-        exists = True
+        os.makedirs(model_folder_path, exist_ok=True)
         count = 0
-        while exists:
-            if os.path.isfile(model_folder_path + "/" + file_name + "_" + str(count) + ".pth"):
-                count += 1
-            else:
-                exists = False
-
-        filename = os.path.join(
-            model_folder_path, file_name + "_" + str(count) + ".pth")
+        while True:
+            filename = f"{model_folder_path}/{file_name}_{count}.pth"
+            if not os.path.isfile(filename):
+                break
+            count += 1
         torch.save(self.state_dict(), filename)
 
 

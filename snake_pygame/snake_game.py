@@ -183,6 +183,8 @@ class SnakeGame(object):
             food_pos[1] < snake_head[1],
             # food down
             food_pos[1] > snake_head[1],
+            # length of snake
+            self.snake.size() / (0.05 * self.rows * self.rows)
         ]
         return np.array(state, dtype=int)
 

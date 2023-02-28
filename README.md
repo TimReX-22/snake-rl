@@ -29,5 +29,10 @@ If you want to train a new model, do not include a `model_name` in the JSON file
 ```
 python agent.py parameters.json
 ```
+
+If you simpy want to play the snake game using your keyboard, your can run the game by:
+```
+python snake_pygame/run.py
+```
 ## Credits
 The Inspiration for this project stems from this [YouTube Video](https://www.youtube.com/watch?v=L8ypSXwyBds)

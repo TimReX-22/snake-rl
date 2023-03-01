@@ -1,5 +1,5 @@
 # Snake using RL
-Reinforcement Learning for the game snake using PyTorch and PyGame
+Reinforcement Learning for the game snake using PyTorch and PyGame. Tested on Ubuntu 20.04.
 
 ## Install
 

@@ -14,7 +14,7 @@ pip install -r requirements.txt
 
 ## Run
 
-To run a model, add the relative path to `parameters.json`. The JSON file should also include the following:
+To run a model, you will have to create or modify `parameters.json`. The JSON file should include the following parameters:
 ```
 {
   "max_memory": 100000,
@@ -25,7 +25,7 @@ To run a model, add the relative path to `parameters.json`. The JSON file should
   "model_name": "model/model_score_36_1.pth"
 }
 ```
-If you want to train a new model, do not include a `model_name` in the JSON file. Then you can run the agent using:
+`model_name` should be the relative path to the model file. If you want to train a new model, do not include a `model_name` in the JSON file. Then you can run the agent using:
 ```
 python agent.py parameters.json
 ```
@@ -34,5 +34,11 @@ If you simpy want to play the snake game using your keyboard, your can run the g
 ```
 python snake_pygame/run.py
 ```
+
+Incase you get a `ModuleNotFoundError`, you can most likely resolve it by updating `PYTHONPATH` with the path to the repo directory:
+```
+export PYTHONPATH=$PYTHONPATH:<path to repo>
+```
+
 ## Credits
 The Inspiration for this project stems from this [YouTube Video](https://www.youtube.com/watch?v=L8ypSXwyBds)

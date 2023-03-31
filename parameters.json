@@ -4,5 +4,5 @@
   "lr": 0.001,
   "gamma": 0.9,
   "epsilon": 100,
-  "model_name": "model/model_score_36_1.pth"
+  "model_name": "output/model_score_36_1.pth"
 }

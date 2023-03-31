@@ -1,5 +1,5 @@
 import json
-from model import Linear_QNet, QTrainer
+from model.linear_model import Linear_QNet, QTrainer
 from snake_pygame.snake import Direction
 from snake_pygame.snake_game import SnakeGame, Action, State
 

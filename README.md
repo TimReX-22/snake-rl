@@ -1,4 +1,4 @@
-# Snake using RL
+# Snake using RL ![pylint_badge](https://github.com/TimReX-22/snake-rl/actions/workflows/pylint.yml/badge.svg)
 Reinforcement Learning for the game snake using PyTorch and PyGame. Tested on Ubuntu 20.04.
 
 ## Install

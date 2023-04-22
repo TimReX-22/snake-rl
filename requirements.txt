@@ -1,5 +1,5 @@
-matplotlib==3.3.4
-numpy==1.21.6
-pygame==2.1.2
+matplotlib
+numpy
+pygame
 torch
 torchvision

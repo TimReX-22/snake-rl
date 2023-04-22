@@ -18,8 +18,8 @@ class Conv_QNet(Module):
                             kernel_size=(5, 5))
         self.maxpool2 = MaxPool2d(kernel_size=(2, 2), stride=(2, 2))
 
-        self.linear1 = Linear(in_features=800, out_features=500)
-        self.linear2 = Linear(in_features=500, out_features=output_size)
+        self.linear1 = Linear(in_features=200, out_features=24)
+        self.linear2 = Linear(in_features=24, out_features=output_size)
 
     def forward(self, x):
         x = F.relu(self.conv1(x))
